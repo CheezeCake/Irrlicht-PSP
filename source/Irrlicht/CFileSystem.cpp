@@ -894,7 +894,7 @@ IFileList* CFileSystem::createFileList()
 					size = buf.st_size;
 					isDirectory = S_ISDIR(buf.st_mode);
 				}
-				#if !defined(_IRR_SOLARIS_PLATFORM_) && !defined(__CYGWIN__)
+				#if !defined(_IRR_SOLARIS_PLATFORM_) && !defined(__CYGWIN__) && !defined(_IRR_PSP_PLATFORM_)
 				// only available on some systems
 				else
 				{

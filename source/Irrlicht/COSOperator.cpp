@@ -11,7 +11,7 @@
 #else
 #include <string.h>
 #include <unistd.h>
-#ifndef _IRR_SOLARIS_PLATFORM_
+#if !defined(_IRR_SOLARIS_PLATFORM_) && !defined(_IRR_PSP_PLATFORM_)
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #endif
@@ -183,7 +183,7 @@ bool COSOperator::getSystemMemory(u32* Total, u32* Avail) const
 	_IRR_IMPLEMENT_MANAGED_MARSHALLING_BUGFIX;
 	return true;
 
-#elif defined(_IRR_POSIX_API_) && !defined(__FreeBSD__)
+#elif defined(_IRR_POSIX_API_) && !defined(__FreeBSD__) && !defined(_IRR_PSP_PLATFORM_)
 #if defined(_SC_PHYS_PAGES) && defined(_SC_AVPHYS_PAGES)
         long ps = sysconf(_SC_PAGESIZE);
         long pp = sysconf(_SC_PHYS_PAGES);
@@ -203,6 +203,7 @@ bool COSOperator::getSystemMemory(u32* Total, u32* Avail) const
 #endif
 #else
 	// TODO: implement for OSX
+	// TOOD: implement for PSP or implement in newlib
 	return false;
 #endif
 }

@@ -56,6 +56,14 @@
 #undef _IRR_COMPILE_WITH_CONSOLE_DEVICE_
 #endif
 
+// use SDL device for the PSP
+#if defined(__psp__) || defined(_PSP) || defined(PSP)
+#define _IRR_PSP_PLATFORM_
+#define _IRR_COMPILE_WITH_SDL_DEVICE_
+#define _IRR_POSIX_API_
+#define _POSIX_TIMERS // for newlib
+#endif
+
 //! WIN32 for Windows32
 //! WIN64 for Windows64
 // The windows platform and API support SDL and WINDOW device
@@ -97,7 +105,7 @@
 #define _IRR_COMPILE_WITH_OSX_DEVICE_
 #endif
 
-#if !defined(_IRR_WINDOWS_API_) && !defined(_IRR_OSX_PLATFORM_)
+#if !defined(_IRR_WINDOWS_API_) && !defined(_IRR_OSX_PLATFORM_) && !defined(_IRR_PSP_PLATFORM_)
 #ifndef _IRR_SOLARIS_PLATFORM_
 #define _IRR_LINUX_PLATFORM_
 #endif

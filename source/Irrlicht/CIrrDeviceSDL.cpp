@@ -79,7 +79,7 @@ CIrrDeviceSDL::CIrrDeviceSDL(const SIrrlichtCreationParameters& param)
 	SDL_putenv("SDL_VIDEODRIVER=directx");
 #elif defined(_IRR_OSX_PLATFORM_)
 	SDL_putenv("SDL_VIDEODRIVER=Quartz");
-#else
+#elif !defined(_IRR_PSP_PLATFORM_)
 	SDL_putenv("SDL_VIDEODRIVER=x11");
 #endif
 //	SDL_putenv("SDL_WINDOWID=");
@@ -110,6 +110,12 @@ CIrrDeviceSDL::CIrrDeviceSDL(const SIrrlichtCreationParameters& param)
 		SDL_Flags |= SDL_OPENGL;
 	else if (CreationParams.Doublebuffer)
 		SDL_Flags |= SDL_DOUBLEBUF;
+
+#ifdef _IRR_PSP_PLATFORM_
+	// a crash occurs on PSP when SDL_ANYFORMAT is passed to SDL_SetVideoMode
+	SDL_Flags &= ~SDL_ANYFORMAT;
+#endif
+
 	// create window
 	if (CreationParams.DriverType != video::EDT_NULL)
 	{
