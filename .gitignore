@@ -4,3 +4,7 @@ lib
 examples
 media
 tools
+*.a
+*.o
+*.d
+*.swp
